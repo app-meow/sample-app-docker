@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent agent {
+        kubernetes {
+            label 'kubeagent'
+            defaultContainer 'docker'
+        }
+    }
 
     environment {
         DOCKER_CREDENTIALS_ID = 'registry-acc-robot1' // ID của credential Docker trong Jenkins
