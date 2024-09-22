@@ -27,7 +27,7 @@ pipeline {
                         --context $WORKSPACE \
                         --dockerfile $WORKSPACE/Dockerfile \
                         --destination ${DOCKER_IMAGE_NAME}:${commitId}
-                        --insecure
+                        --insecure-registry registry.gama-kltn-fe.online
                     '''
                 }
             }
