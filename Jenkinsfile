@@ -20,7 +20,8 @@ pipeline {
                     // Lấy ID commit hiện tại
                     def commitId = env.GIT_COMMIT
                     // Xây dựng hình ảnh Docker với commit ID làm tag
-                    sh "docker build -t ${DOCKER_IMAGE_NAME}:${commitId} ."
+                    //sh "docker build -t ${DOCKER_IMAGE_NAME}:${commitId} ."
+                    dockerImage = docker.build ${DOCKER_IMAGE_NAME}:${commitId}
                 }
             }
         }
