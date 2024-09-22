@@ -21,12 +21,13 @@ pipeline {
         
         stage('Build Docker Image') {
             steps {
-                script {
-                    // Lấy ID commit hiện tại
-                    def commitId = env.GIT_COMMIT
-                    // Xây dựng hình ảnh Docker với commit ID làm tag
-                    //sh "docker build -t ${DOCKER_IMAGE_NAME}:${commitId} ."
-                    def dockerImage = docker.build ("${DOCKER_IMAGE_NAME}:${commitId}")
+                container('kaniko') {
+                    sh '''
+                    /kaniko/executor \
+                        --context $WORKSPACE \
+                        --dockerfile $WORKSPACE/Dockerfile \
+                        --destination ${DOCKER_IMAGE_NAME}:${commitId}
+                    '''
                 }
             }
         }
