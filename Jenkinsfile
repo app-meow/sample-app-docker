@@ -33,16 +33,15 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                container(name: 'docker')
-                {
-                    script {
-                        // Đăng nhập vào Docker Registry
-                        docker.withRegistry('https://registry.gama-kltn-fe.online', DOCKER_CREDENTIALS_ID) {
-                            // Đẩy hình ảnh Docker lên registry
-                            sh "docker push ${DOCKER_IMAGE_NAME}:${commitId}"
-                        }
+
+                script {
+                    // Đăng nhập vào Docker Registry
+                    docker.withRegistry('https://registry.gama-kltn-fe.online', DOCKER_CREDENTIALS_ID) {
+                        // Đẩy hình ảnh Docker lên registry
+                        sh "docker push ${DOCKER_IMAGE_NAME}:${commitId}"
                     }
                 }
+                
             }
         }
     }
