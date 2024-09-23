@@ -17,12 +17,20 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Check Docker Image') {
+            steps {
+                container('kaniko') {
+                    sh '''
+                    ls
+                    '''
+                }
+            }
+        }
 
         
         stage('Build Docker Image') {
             steps {
                 container('kaniko') {
-                    sh 'ls' \
                     sh '''
                     /kaniko/executor \
                         --context $WORKSPACE \
