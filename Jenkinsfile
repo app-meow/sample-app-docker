@@ -33,10 +33,9 @@ pipeline {
                 container('kaniko') {
                     sh '''
                     /kaniko/executor \
-                        --context $WORKSPACE \
-                        --dockerfile $WORKSPACE/Dockerfile \
+                        --context ./ \
+                        --dockerfile ./Dockerfile \
                         --destination ${DOCKER_IMAGE_NAME}:${commitId}
-                        --skip-tls-verify
                         --insecure
                     '''
                 }
