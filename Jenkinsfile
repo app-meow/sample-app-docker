@@ -22,6 +22,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 container('kaniko') {
+                    sh "ll"
                     sh '''
                     /kaniko/executor \
                         --context $WORKSPACE \
