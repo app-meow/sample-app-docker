@@ -22,7 +22,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 container('kaniko') {
-                    echo "ahihi" \
                     sh 'ls' \
                     sh '''
                     /kaniko/executor \
