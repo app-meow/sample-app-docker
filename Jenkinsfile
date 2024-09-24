@@ -56,7 +56,7 @@ pipeline {
                     /kaniko/executor \
                         --context ./ \
                         --dockerfile ./Dockerfile \
-                        --destination ${env.IMAGE_NAME_FULL}
+                        --destination env.IMAGE_NAME_FULL
                         --no-push
                     '''
                 }
