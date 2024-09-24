@@ -40,9 +40,10 @@ pipeline {
         stage('Check Docker Image') {
             steps {
                 container('kaniko') {
-                    sh '''
-                  echo "${env.IMAGE_NAME_FULL}"
-                    '''
+                   script {
+                    // In trực tiếp biến môi trường bằng lệnh shell
+                    sh 'echo $IMAGE_NAME_FULL'
+                    }
                 }
             }
         }
@@ -56,7 +57,7 @@ pipeline {
                     /kaniko/executor \
                         --context ./ \
                         --dockerfile ./Dockerfile \
-                        --destination "${env.IMAGE_NAME_FULL}"
+                        --destination "${IMAGE_NAME_FULL}"
                         --no-push
                     '''
                 }
