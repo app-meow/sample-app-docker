@@ -17,6 +17,26 @@ pipeline {
                 checkout scm
             }
         }
+    stage('get commit Id') {
+            steps {
+                script {
+                    // Lấy commit ID và lưu vào biến
+                    def commitId = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+
+                    // In commit ID ra console
+                    echo "Commit ID: ${commitId}"
+
+                    // Xây dựng tên Docker image với commit ID
+                    def imageName = "${DOCKER_IMAGE_NAME}:${commitId}"
+                    
+                    // In tên image ra console
+                    echo "Docker Image Name: ${imageName}"
+
+                    // Lưu tên image vào biến môi trường để dùng ở các bước sau
+                    env.IMAGE_NAME_FULL = imageName
+                }
+            }
+        }
         stage('Check Docker Image') {
             steps {
                 container('kaniko') {
@@ -31,11 +51,12 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 container('kaniko') {
+                    
                     sh '''
                     /kaniko/executor \
                         --context ./ \
                         --dockerfile ./Dockerfile \
-                        --destination ${DOCKER_IMAGE_NAME}:${commitId}
+                        --destination ${env.IMAGE_NAME_FULL}
                         --no-push
                     '''
                 }
