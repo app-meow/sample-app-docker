@@ -36,7 +36,7 @@ pipeline {
                         --context ./ \
                         --dockerfile ./Dockerfile \
                         --destination ${DOCKER_IMAGE_NAME}:${commitId}
-                        --skip-tls-verify
+                        --no-push
                     '''
                 }
             }
