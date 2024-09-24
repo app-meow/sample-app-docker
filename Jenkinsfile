@@ -57,7 +57,7 @@ pipeline {
                     /kaniko/executor \
                         --context ./ \
                         --dockerfile ./Dockerfile \
-                        --destination "${IMAGE_NAME_FULL}"
+                        --destination ${IMAGE_NAME_FULL} --skip-tls-verify \
                         --no-push
                     '''
                 }
