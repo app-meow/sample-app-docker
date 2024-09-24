@@ -4,6 +4,7 @@ pipeline {
             label 'kubeagent'
         }
     }
+    
 
     environment {
         DOCKER_CREDENTIALS_ID = 'registry-acc-robot1' // ID của credential Docker trong Jenkins
