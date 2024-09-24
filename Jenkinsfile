@@ -21,7 +21,8 @@ pipeline {
             steps {
                 container('kaniko') {
                     sh '''
-                    ls
+                    ls \
+                     echo "${DOCKER_IMAGE_NAME}:${commitId}"
                     '''
                 }
             }
