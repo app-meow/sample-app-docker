@@ -33,8 +33,10 @@ pipeline {
                     // In tên image ra console
                     echo "Docker Image Name: ${imageName}"
 
+
                     // Lưu tên image vào biến môi trường để dùng ở các bước sau
                     env.IMAGE_NAME_FULL = imageName
+                    sleep 300 // seconds
                 }
             }
         }
