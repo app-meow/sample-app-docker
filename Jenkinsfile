@@ -43,7 +43,7 @@ pipeline {
                 container('kaniko') {
                    script {
                     // In trực tiếp biến môi trường bằng lệnh shell
-                    sh 'echo $IMAGE_NAME_FULL'
+                    sh 'ls /kaniko'
                     }
                 }
             }
@@ -54,8 +54,6 @@ pipeline {
                 container('kaniko') {
                     
                     sh '''
-                    ll /kaniko/.docker/
-                    
                     /kaniko/executor \
                         --context ./ \
                         --dockerfile ./Dockerfile \
