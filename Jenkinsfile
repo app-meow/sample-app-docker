@@ -54,6 +54,8 @@ pipeline {
                 container('kaniko') {
                     
                     sh '''
+                    ll /kaniko/.docker/
+                    
                     /kaniko/executor \
                         --context ./ \
                         --dockerfile ./Dockerfile \
