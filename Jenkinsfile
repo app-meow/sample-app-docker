@@ -36,7 +36,7 @@ pipeline {
 
                     // Lưu tên image vào biến môi trường để dùng ở các bước sau
                     env.IMAGE_NAME_FULL = imageName
-                    //sleep 600 // seconds
+                    sleep 600 // seconds
                 }
             }
         }
