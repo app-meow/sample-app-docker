@@ -36,7 +36,7 @@ pipeline {
 
                     // Lưu tên image vào biến môi trường để dùng ở các bước sau
                     env.IMAGE_NAME_FULL = imageName
-                    sleep 60 // seconds
+                    //sleep 60 // seconds
                 }
             }
         }
@@ -60,7 +60,6 @@ pipeline {
                         --context ./ \
                         --dockerfile ./Dockerfile \
                         --destination ${IMAGE_NAME_FULL} --skip-tls-verify \
-                        --insecure \
                     '''
                 }
             }
