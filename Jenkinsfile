@@ -8,7 +8,7 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS_ID = 'registry-acc-robot1' // ID của credential Docker trong Jenkins
-        DOCKER_IMAGE_NAME = env.REGISTRY_URL
+        DOCKER_IMAGE_NAME = '${env.REGISTRY_URL}'
     }
 
     stages {
@@ -21,7 +21,6 @@ pipeline {
     stage('get commit Id') {
             steps {
                 script {
-                    echo env.REGISTRY_URL
                     // Lấy commit ID và lưu vào biến
                     def commitId = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
 
