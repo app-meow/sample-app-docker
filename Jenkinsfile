@@ -8,7 +8,7 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS_ID = 'registry-acc-robot1' // ID của credential Docker trong Jenkins
-        DOCKER_IMAGE_NAME = 'registry.gama-kltn-fe.online/meow-app/sample-app-docker'
+        DOCKER_IMAGE_NAME = $REGISTRY_URL
     }
 
     stages {
