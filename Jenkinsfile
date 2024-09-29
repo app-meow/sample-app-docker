@@ -60,7 +60,7 @@ pipeline {
                     /kaniko/executor \
                         --context ./ \
                         --dockerfile ./Dockerfile \
-                        --destination ${IMAGE_NAME_FULL} --skip-tls-verify \
+                        --destination ${IMAGE_NAME_FULL} --skip-tls-verify --insecure\
                     '''
                 }
             }
