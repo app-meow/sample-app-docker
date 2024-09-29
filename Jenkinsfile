@@ -21,6 +21,7 @@ pipeline {
     stage('get commit Id') {
             steps {
                 script {
+                    echo '${REGISTRY_URL}'
                     // Lấy commit ID và lưu vào biến
                     def commitId = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
 
