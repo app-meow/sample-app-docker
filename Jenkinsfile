@@ -103,6 +103,7 @@ pipeline {
                     sh """
                         mkdir -p ~/.ssh
                         ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+                        ssh -i ~/.ssh/id_rsa git@github.com
                         git remote set-url origin ${env.MANIFEST_URL_GITHUB_GIT}
                         git push origin main
                     """
