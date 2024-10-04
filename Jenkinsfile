@@ -78,6 +78,29 @@ pipeline {
                     ]]
                 ])
 
+
+                 // Đọc nội dung của file yaml
+                    def yamlFilePath = "overlays/dev/user/user-app/alpine-patch.yaml"
+                    def newImageTag = "${env.IMAGE_NAME_FULL}"  // Giả định image mới đã được build và tag
+
+                    // Thay thế 'image: alpine:3.14' bằng image mới nhất
+                    sh """
+                        sed -i 's|image: alpine:3.14|image: ${newImageTag}|' ${yamlFilePath}
+                    """
+
+                    // Cấu hình thông tin user cho git
+                    sh 'git config user.email "your-email@example.com"'
+                    sh 'git config user.name "your-username"'
+
+                    // Add file đã thay đổi và commit
+                    sh "git add ${yamlFilePath}"
+                    sh 'git commit -m "Update image to ${newImageTag}"'
+
+                    // Push thay đổi lên repository
+                    withCredentials([usernamePassword(credentialsId: 'github-acc', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                        sh 'git push https://$GIT_USERNAME:$GIT_PASSWORD@github.com/your-repo.git main'
+                    }
+                
                 sleep 600 // seconds
                 }
             }          
