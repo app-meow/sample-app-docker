@@ -95,13 +95,14 @@ pipeline {
                     // Add file đã thay đổi và commit
                     sh "git add ${yamlFilePath}"
                     sh 'git commit -m "Update image to ${newImageTag}"'
-
-                    // Sử dụng Git Push Plugin để đẩy mã lên repository
-                    gitPush branch: 'main', remote: 'origin', credentialsId: 'github-acc'
                 
                     // Push thay đổi lên repository
-                    withCredentials([usernamePassword(credentialsId: 'github-acc', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
-                        sh 'git push https://$GIT_USERNAME:$GIT_PASSWORD@github.com/your-repo.git main'
+                    withCredentials([usernamePassword(credentialsId: 'github-truongnam1-PAT', variable: 'GITHUB_PAT')]) {
+                        // Sử dụng git login với PAT thay vì username/password
+                    sh """
+                        git remote set-url origin https://$GITHUB_PAT@ ${env.MANIFEST_URL_GITHUB}
+                        git push origin main
+                    """
                     }
                 
                 sleep 600 // seconds
