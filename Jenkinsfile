@@ -77,6 +77,8 @@ pipeline {
                         credentialsId: 'github-acc'
                     ]]
                 ])
+
+                sleep 600 // seconds
                 }
             }          
             }
