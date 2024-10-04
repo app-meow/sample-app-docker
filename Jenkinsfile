@@ -102,7 +102,7 @@ pipeline {
                     withCredentials([sshUserPrivateKey(credentialsId: 'github-acc-sshkey', keyFileVariable: 'SSH_KEY')]) {
                         // Sử dụng git login với PAT thay vì username/password
                     sh """
-                        git remote set-url origin ${env.MANIFEST_URL_GIT}
+                        git remote set-url origin ${env.MANIFEST_URL_GITHUB_GIT}
                         git push origin main
                     """
                     }
