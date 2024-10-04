@@ -103,9 +103,9 @@ pipeline {
                     sh """
                         mkdir -p ~/.ssh
                         ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+                        sleep 300 // seconds
                         ssh -i ~/.ssh/id_rsa git@github.com
                         git remote set-url origin ${env.MANIFEST_URL_GITHUB_GIT}
-                        sleep 300 // seconds
                         git push origin main
                     """
                     }
