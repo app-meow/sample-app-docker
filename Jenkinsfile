@@ -67,6 +67,8 @@ pipeline {
         // }
 
         stage('Update Tag') {
+
+            steps {
             script {
                 checkout([$class: 'GitSCM',
                     branches: [[name: 'main' ]],
@@ -77,6 +79,9 @@ pipeline {
                     ]]
                 ])
                 }
+
+            }
+            
             }
         } 
 
