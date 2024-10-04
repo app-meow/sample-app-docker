@@ -101,6 +101,7 @@ pipeline {
                     withCredentials([sshUserPrivateKey(credentialsId: 'github-acc-sshkey', keyFileVariable: 'SSH_KEY')]) {
                     
                     sh """
+                        ssh -T git@github.com -y
                         git remote set-url origin ${env.MANIFEST_URL_GITHUB_GIT}
                         git push origin main
                     """
