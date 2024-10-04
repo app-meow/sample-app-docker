@@ -97,7 +97,7 @@ pipeline {
                     sh 'git commit -m "Update image to ${newImageTag}"'
                 
                     // Push thay đổi lên repository
-                    withCredentials([usernamePassword(credentialsId: 'github-truongnam1-PAT', variable: 'GITHUB_PAT')]) {
+                    withCredentials([string(credentialsId: 'github-truongnam1-PAT', variable: 'GITHUB_PAT')]) {
                         // Sử dụng git login với PAT thay vì username/password
                     sh """
                         git remote set-url origin https://$GITHUB_PAT@ ${env.MANIFEST_URL_GITHUB}
