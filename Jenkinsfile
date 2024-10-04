@@ -99,7 +99,7 @@ pipeline {
                     sh'git branch'      //# Kiểm tra nhánh hiện tại
                     sh 'git status'      //# Kiểm tra trạng thái repo
                     // Push thay đổi lên repository
-                    withCredentials([string(credentialsId: 'github-truongnam1-PAT', variable: 'GITHUB_PAT')]) {
+                    withCredentials([sshUserPrivateKey(credentialsId: 'github-acc-sshkey', keyFileVariable: 'SSH_KEY')]) {
                         // Sử dụng git login với PAT thay vì username/password
                     sh """
                         git remote set-url origin https://$GITHUB_PAT@${env.MANIFEST_URL_GITHUB}
