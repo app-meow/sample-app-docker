@@ -95,11 +95,14 @@ pipeline {
                     // Add file đã thay đổi và commit
                     sh "git add ${yamlFilePath}"
                     sh 'git commit -m "Update image to ${newImageTag}"'
-                
+                    sh'git branch'      //# Kiểm tra nhánh hiện tại
+                    sh 'git status'      //# Kiểm tra trạng thái repo
+                    sh 'git log'         //# Kiểm tra các commit
                     // Push thay đổi lên repository
                     withCredentials([string(credentialsId: 'github-truongnam1-PAT', variable: 'GITHUB_PAT')]) {
                         // Sử dụng git login với PAT thay vì username/password
                     sh """
+                        git checkout main
                         git remote set-url origin https://$GITHUB_PAT@${env.MANIFEST_URL_GITHUB}
                         git push origin main
                     """
