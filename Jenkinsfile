@@ -99,8 +99,10 @@ pipeline {
                 
                     // Push thay đổi lên repository
                     withCredentials([sshUserPrivateKey(credentialsId: 'github-acc-sshkey', keyFileVariable: 'SSH_KEY')]) {
-                    sh 'ssh-keyscan -H github.com >> ~/.ssh/known_hosts'
+                    
                     sh """
+                        mkdir -p ~/.ssh
+                        sh 'ssh-keyscan -H github.com >> ~/.ssh/known_hosts'
                         git remote set-url origin ${env.MANIFEST_URL_GITHUB_GIT}
                         git push origin main
                     """
