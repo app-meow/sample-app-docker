@@ -52,19 +52,33 @@ pipeline {
             }
         }
       
-        stage('Build Docker Image') {
-            steps {
-                container('kaniko') {
+        // stage('Build Docker Image') {
+        //     steps {
+        //         container('kaniko') {
                     
-                    sh '''
-                    /kaniko/executor \
-                        --context ./ \
-                        --dockerfile ./Dockerfile \
-                        --destination ${IMAGE_NAME_FULL} --skip-tls-verify --insecure\
-                    '''
+        //             sh '''
+        //             /kaniko/executor \
+        //                 --context ./ \
+        //                 --dockerfile ./Dockerfile \
+        //                 --destination ${IMAGE_NAME_FULL} --skip-tls-verify --insecure\
+        //             '''
+        //         }
+        //     }
+        // }
+
+        stage('Update Tag') {
+            script {
+                checkout([$class: 'GitSCM',
+                    branches: [[name: 'main' ]],
+                    extensions: scm.extensions,
+                    userRemoteConfigs: [[
+                        url: '${env.MANIFEST_URL_GIT}',
+                        credentialsId: 'github-acc'
+                    ]]
+                ])
                 }
             }
-        }
+        } 
 
     }
 
