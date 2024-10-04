@@ -96,6 +96,9 @@ pipeline {
                     sh "git add ${yamlFilePath}"
                     sh 'git commit -m "Update image to ${newImageTag}"'
 
+                    // Sử dụng Git Push Plugin để đẩy mã lên repository
+                    gitPush branch: 'main', remote: 'origin', credentialsId: 'github-acc'
+                
                     // Push thay đổi lên repository
                     withCredentials([usernamePassword(credentialsId: 'github-acc', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                         sh 'git push https://$GIT_USERNAME:$GIT_PASSWORD@github.com/your-repo.git main'
