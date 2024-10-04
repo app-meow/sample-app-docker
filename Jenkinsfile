@@ -67,21 +67,18 @@ pipeline {
         // }
 
         stage('Update Tag') {
-
             steps {
             script {
                 checkout([$class: 'GitSCM',
                     branches: [[name: 'main' ]],
                     extensions: scm.extensions,
                     userRemoteConfigs: [[
-                        url: '${env.MANIFEST_URL_GIT}',
+                        url: "${env.MANIFEST_URL_GIT}",
                         credentialsId: 'github-acc'
                     ]]
                 ])
                 }
-
-            }
-            
+            }          
             }
         } 
 
