@@ -100,7 +100,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'github-truongnam1-PAT', variable: 'GITHUB_PAT')]) {
                         // Sử dụng git login với PAT thay vì username/password
                     sh """
-                        git remote set-url origin https://$GITHUB_PAT@ ${env.MANIFEST_URL_GITHUB}
+                        git remote set-url origin https://$GITHUB_PAT@${env.MANIFEST_URL_GITHUB}
                         git push origin main
                     """
                     }
