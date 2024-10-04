@@ -96,11 +96,10 @@ pipeline {
                     // Add file đã thay đổi và commit
                     sh "git add ${yamlFilePath}"
                     sh 'git commit -m "Update image to ${newImageTag}"'
-                    sh'git branch'      //# Kiểm tra nhánh hiện tại
-                    sh 'git status'      //# Kiểm tra trạng thái repo
+                
                     // Push thay đổi lên repository
                     withCredentials([sshUserPrivateKey(credentialsId: 'github-acc-sshkey', keyFileVariable: 'SSH_KEY')]) {
-                        // Sử dụng git login với PAT thay vì username/password
+                    sh 'ssh-keyscan -H github.com >> ~/.ssh/known_hosts'
                     sh """
                         git remote set-url origin ${env.MANIFEST_URL_GITHUB_GIT}
                         git push origin main
