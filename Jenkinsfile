@@ -98,14 +98,18 @@ pipeline {
                     sh 'git commit -m "Update image to ${newImageTag}"'
                 
                     // Push thay đổi lên repository
-                    withCredentials([sshUserPrivateKey(credentialsId: 'github-acc-sshkey', keyFileVariable: 'SSH_KEY')]) {
+                    // withCredentials([sshUserPrivateKey(credentialsId: 'github-acc-sshkey', keyFileVariable: 'SSH_KEY')]) {
                     
-                        sh '''
-                             # modify some files
-                             git remote set-url origin "${MANIFEST_URL_GITHUB_GIT}"
-                             git push main
-                          '''
-                    }
+                    //     sh '''
+                    //          # modify some files
+                    //          git remote set-url origin "${MANIFEST_URL_GITHUB_GIT}"
+                    //          git push main
+                    //       '''
+                    // }
+
+                withCredentials([gitUsernamePassword(credentialsId: 'github-acc', gitToolName: 'git-tool')]) {
+                  sh 'git push'
+                }
                 
                 sleep 600 // seconds
                 }
