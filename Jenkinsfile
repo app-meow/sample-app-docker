@@ -91,8 +91,8 @@ pipeline {
                     // Thay thế 'image: *' bằng image mới nhất
                     sh """
                         sed -i 's|image:.*|image: ${newImageTag}|' ${yamlFilePath}
-                        git config --global user.email "you@example.com"
-                        git config --global user.name "Your Name"
+                        git config --global user.email "${gitEmail}"
+                        git config --global user.name "${gitUsername}"
                     """
 
                     // // Cấu hình thông tin user cho git
