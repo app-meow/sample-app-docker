@@ -80,38 +80,31 @@ pipeline {
                 sh 'git checkout main'
 
 
+                    // Lấy email và username từ cấu hình git hiện tại
+                    def gitEmail = sh(script: 'git config --get user.email', returnStdout: true).trim()
+                    def gitUsername = sh(script: 'git config --get user.name', returnStdout: true).trim()
+                
                  // Đọc nội dung của file yaml
                     def yamlFilePath = "overlays/dev/user/user-app/alpine-patch.yaml"
                     def newImageTag = "${env.IMAGE_NAME_FULL}"  // Giả định image mới đã được build và tag
 
-                    // Thay thế 'image: alpine:3.14' bằng image mới nhất
+                    // Thay thế 'image: *' bằng image mới nhất
                     sh """
-                        sed -i 's|image: alpine:3.14|image: ${newImageTag}|' ${yamlFilePath}
+                        sed -i 's|image:.*|image: ${newImageTag}|' ${yamlFilePath}
                     """
 
                     // Cấu hình thông tin user cho git
-                    sh 'git config user.email "your-email@example.com"'
-                    sh 'git config user.name "your-username"'
+                    sh 'git config user.email "${gitEmail}"'
+                    sh 'git config user.name "${gitUsername}"'
 
                     // Add file đã thay đổi và commit
                     sh "git add ${yamlFilePath}"
                     sh 'git commit -m "Update image to ${newImageTag}"'
                 
-                    // Push thay đổi lên repository
-                    // withCredentials([sshUserPrivateKey(credentialsId: 'github-acc-sshkey', keyFileVariable: 'SSH_KEY')]) {
-                    
-                    //     sh '''
-                    //          # modify some files
-                    //          git remote set-url origin "${MANIFEST_URL_GITHUB_GIT}"
-                    //          git push main
-                    //       '''
-                    // }
 
                 withCredentials([gitUsernamePassword(credentialsId: 'github-acc', gitToolName: 'git-tool')]) {
                   sh 'git push'
                 }
-                
-                sleep 600 // seconds
                 }
             }          
             }
