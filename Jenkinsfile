@@ -91,8 +91,8 @@ pipeline {
                     // Thay thế 'image: *' bằng image mới nhất
                     sh """
                         sed -i 's|image:.*|image: ${newImageTag}|' ${yamlFilePath}
-                        git config --global user.email "${gitEmail}"
-                        git config --global user.name "${gitUsername}"
+                        git config user.email "${gitEmail}"
+                        git config user.name "${gitUsername}"
                     """
 
                     // // Cấu hình thông tin user cho git
@@ -101,7 +101,7 @@ pipeline {
 
                     // Add file đã thay đổi và commit
                     sh "git add ${yamlFilePath}"
-                    sh 'git commit -m "Update image to ${newImageTag}"'
+                    sh 'git commit -m "Update image to ${env.IMAGE_NAME_FULL}"'
                     sh 'git push'
                 }
                 }
