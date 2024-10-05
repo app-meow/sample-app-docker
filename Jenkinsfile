@@ -102,8 +102,6 @@ pipeline {
                     
                         sh '''
                              # modify some files
-                             git add .
-                             git commit -m "register work"
                              git push
                           '''
                     }
