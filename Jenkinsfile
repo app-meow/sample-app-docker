@@ -86,7 +86,7 @@ pipeline {
 
                     // Add file đã thay đổi và commit
                     sh "git add ${yamlFilePath}"
-                    sh 'git commit -m "Update image to "${newImageTag}"'
+                    sh 'git commit -m "Update image to ${newImageTag}"'
                     sh 'git push'
                 }
                 }
