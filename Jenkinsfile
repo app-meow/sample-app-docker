@@ -73,8 +73,8 @@ pipeline {
                     branches: [[name: 'main' ]],
                     extensions: scm.extensions,
                     userRemoteConfigs: [[
-                        url: "${env.MANIFEST_URL_GIT}",
-                        credentialsId: 'github-acc'
+                        url: "${env.MANIFEST_URL_GITHUB_GIT}",
+                        credentialsId: 'github-acc-sshkey'
                     ]]
                 ])
                 sh 'git checkout main'
