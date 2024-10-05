@@ -20,13 +20,6 @@ pipeline {
     stage('get commit Id') {
             steps {
                 script {
-                    echo "${env.REGISTRY_URL}"
-                    // Lấy commit ID và lưu vào biến
-                    def commitId = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
-
-                    // In commit ID ra console
-                    echo "Commit ID: ${commitId}"
-
                     // Xây dựng tên Docker image với commit ID
                     def imageName = "${DOCKER_IMAGE_NAME}:${env.GIT_COMMIT}"
                     
