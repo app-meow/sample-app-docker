@@ -79,7 +79,7 @@ pipeline {
                 ])
                 sh 'git checkout main'
 
-
+                withCredentials([gitUsernamePassword(credentialsId: 'github-acc', gitToolName: 'git-tool')]) {
                     // Lấy email và username từ cấu hình git hiện tại
                     def gitEmail = sh(script: 'git config --get user.email', returnStdout: true).trim()
                     def gitUsername = sh(script: 'git config --get user.name', returnStdout: true).trim()
@@ -102,7 +102,7 @@ pipeline {
                     sh 'git commit -m "Update image to ${newImageTag}"'
                 
 
-                withCredentials([gitUsernamePassword(credentialsId: 'github-acc', gitToolName: 'git-tool')]) {
+
                   sh 'git push'
                 }
                 }
