@@ -102,7 +102,7 @@ pipeline {
                     
                     sh """
                         # Thêm GitHub vào known_hosts nếu cần
-                        midir -p ~/.ssh/
+                        mkdir -p ~/.ssh/
                         ssh-keyscan -H github.com >> ~/.ssh/known_hosts
                         git remote set-url origin ${env.MANIFEST_URL_GITHUB_GIT}
                         git push origin main
