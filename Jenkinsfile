@@ -101,7 +101,9 @@ pipeline {
                     withCredentials([sshUserPrivateKey(credentialsId: 'github-acc-sshkey', keyFileVariable: 'SSH_KEY')]) {
                     
                     sh """
-                        ssh -T git@github.com -y
+                        # Thêm GitHub vào known_hosts nếu cần
+                        midir -p ~/.ssh/
+                        ssh-keyscan -H github.com >> ~/.ssh/known_hosts
                         git remote set-url origin ${env.MANIFEST_URL_GITHUB_GIT}
                         git push origin main
                     """
