@@ -60,10 +60,6 @@ pipeline {
                     sh 'git checkout main'
     
                     withCredentials([gitUsernamePassword(credentialsId: 'github-acc',gitToolName: 'git-tool')]) {
-                        // Lấy email và username từ cấu hình git hiện tại
-                        def gitEmail = "admin@mail.com"
-                        def gitUsername = "truongnam1"
-                    
                      // Đọc nội dung của file yaml
                         def yamlFilePath = "overlays/dev/user/user-app/alpine-patch.yaml"
                         def newImageTag = "${env.IMAGE_NAME_FULL}"  // Giả định image mới đã được build và tag
@@ -71,7 +67,6 @@ pipeline {
                         // Thay thế 'image: *' bằng image mới nhất
                         sh """
                             sed -i 's|image:.*|image: ${newImageTag}|' ${yamlFilePath}
-
                         """
     
                         // Add file đã thay đổi và commit
