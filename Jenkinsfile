@@ -100,13 +100,12 @@ pipeline {
                     // Push thay đổi lên repository
                     withCredentials([sshUserPrivateKey(credentialsId: 'github-acc-sshkey', keyFileVariable: 'SSH_KEY')]) {
                     
-                    sh """
-                        # Thêm GitHub vào known_hosts nếu cần
-                        mkdir -p ~/.ssh/
-                        ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-                        git remote set-url origin ${env.MANIFEST_URL_GITHUB_GIT}
-                        git push origin main
-                    """
+                        sh '''
+                             # modify some files
+                             git add .
+                             git commit -m "register work"
+                             git push
+                          '''
                     }
                 
                 sleep 600 // seconds
