@@ -94,8 +94,8 @@ pipeline {
                     """
 
                     // Cấu hình thông tin user cho git
-                    sh 'git config user.email "${gitEmail}"'
-                    sh 'git config user.name "${gitUsername}"'
+                    sh 'git config --global user.email "${gitEmail}"'
+                    sh 'git config --global user.name "${gitUsername}"'
 
                     // Add file đã thay đổi và commit
                     sh "git add ${yamlFilePath}"
