@@ -79,10 +79,10 @@ pipeline {
                 ])
                 sh 'git checkout main'
 
-                withCredentials([gitUsernamePassword(credentialsId: 'github-acc', usernameVariable: 'GIT_USERNAME',gitToolName: 'git-tool')]) {
+                withCredentials([gitUsernamePassword(credentialsId: 'github-acc',gitToolName: 'git-tool')]) {
                     // Lấy email và username từ cấu hình git hiện tại
-                    def gitEmail = "${GIT_USERNAME}"
-                    def gitUsername = ""
+                    def gitEmail = "admin@mail.com"
+                    def gitUsername = "truongnam1"
                 
                  // Đọc nội dung của file yaml
                     def yamlFilePath = "overlays/dev/user/user-app/alpine-patch.yaml"
@@ -100,10 +100,7 @@ pipeline {
                     // Add file đã thay đổi và commit
                     sh "git add ${yamlFilePath}"
                     sh 'git commit -m "Update image to ${newImageTag}"'
-                
-
-
-                  sh 'git push'
+                    sh 'git push'
                 }
                 }
             }          
