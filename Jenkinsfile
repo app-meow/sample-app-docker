@@ -7,7 +7,6 @@ pipeline {
     
 
     environment {
-        DOCKER_CREDENTIALS_ID = 'registry-acc-robot1' // ID của credential Docker trong Jenkins
         DOCKER_IMAGE_NAME = "${env.REGISTRY_URL}/sample-app-docker"
     }
 
@@ -38,16 +37,6 @@ pipeline {
                     // Lưu tên image vào biến môi trường để dùng ở các bước sau
                     env.IMAGE_NAME_FULL = imageName
                     //sleep 600 // seconds
-                }
-            }
-        }
-        stage('Check Docker Image') {
-            steps {
-                container('kaniko') {
-                   script {
-                    // In trực tiếp biến môi trường bằng lệnh shell
-                    sh 'ls /kaniko'
-                    }
                 }
             }
         }
@@ -95,13 +84,9 @@ pipeline {
                         git config user.name "${gitUsername}"
                     """
 
-                    // // Cấu hình thông tin user cho git
-                    // sh 'git config --global user.email "${gitEmail}"'
-                    // sh 'git config --global user.name "${gitUsername}"'
-
                     // Add file đã thay đổi và commit
                     sh "git add ${yamlFilePath}"
-                    sh 'git commit -m "Update image to "${env.IMAGE_NAME_FULL}"'
+                    sh 'git commit -m "Update image to "${newImageTag}"'
                     sh 'git push'
                 }
                 }
