@@ -102,7 +102,8 @@ pipeline {
                     
                         sh '''
                              # modify some files
-                             git ls-remote -h "${MANIFEST_URL_GITHUB_GIT}" HEAD
+                             git remote set-url origin "${MANIFEST_URL_GITHUB_GIT}"
+                             git push main
                           '''
                     }
                 
