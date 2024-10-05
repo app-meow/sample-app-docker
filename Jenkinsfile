@@ -28,7 +28,7 @@ pipeline {
                     echo "Commit ID: ${commitId}"
 
                     // Xây dựng tên Docker image với commit ID
-                    def imageName = "${DOCKER_IMAGE_NAME}:${GIT_REVISION}"
+                    def imageName = "${DOCKER_IMAGE_NAME}:${env.GIT_REVISION}"
                     
                     // In tên image ra console
                     //echo "Docker Image Name: ${imageName}"
