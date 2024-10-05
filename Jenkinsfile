@@ -79,10 +79,10 @@ pipeline {
                 ])
                 sh 'git checkout main'
 
-                withCredentials([gitUsernamePassword(credentialsId: 'github-acc', gitToolName: 'git-tool')]) {
+                withCredentials([gitUsernamePassword(credentialsId: 'github-acc', usernameVariable: 'GIT_USERNAME',gitToolName: 'git-tool')]) {
                     // Lấy email và username từ cấu hình git hiện tại
-                    def gitEmail = sh(script: 'git config --get user.email', returnStdout: true).trim()
-                    def gitUsername = sh(script: 'git config --get user.name', returnStdout: true).trim()
+                    def gitEmail = "${GIT_USERNAME}"
+                    def gitUsername = ""
                 
                  // Đọc nội dung của file yaml
                     def yamlFilePath = "overlays/dev/user/user-app/alpine-patch.yaml"
