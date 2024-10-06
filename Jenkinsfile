@@ -77,6 +77,12 @@ pipeline {
                 }
             }          
         }
+
+        stage('push commit') {
+            steps {
+                build job: "push repo", wait: false
+            }
+        }
     } 
 
     
